@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frontend-park-mail-ru/sample.git"
+    "url": "git+https://github.com/AndreyKochetkov/trivia.git"
   },
   "engines": {
     "node": ">=6.0.0"
