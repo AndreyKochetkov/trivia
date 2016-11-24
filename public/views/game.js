@@ -3,7 +3,8 @@
 
 	const View = window.View;
 	const Form = window.Form;
-	const PingPong = window.PingPong;
+	const Trivia = window.Trivia;
+
 
 	class GameView extends View {
 		constructor(options = {}) {
@@ -14,23 +15,13 @@
 
 		init(options = {}) {}
 
-		_initCanvas () {
-			this.canvas = this._el.querySelector('.js-canvas');
-			this.canvas.width = this._el.clientWidth + '';
-			this.canvas.height = this._el.clientHeight + '';
-		}
+
 
 		resume () {
 			super.resume();
-			this._initCanvas();
-
-			this._game = new PingPong({
-				ctx: this.canvas.getContext('2d'),
-				width: +this.canvas.width,
-				height: +this.canvas.height
-			});
-
+			this._game = new Trivia (this._el);
 			this._game.start();
+
 		}
 	}
 

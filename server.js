@@ -10,6 +10,8 @@ app.use('/', express.static('public', {maxAge: 1}));
 app.use('/chat', express.static('public', {maxAge: 1}));
 app.use('/game', express.static('public', {maxAge: 1}));
 app.use('/scores', express.static('public', {maxAge: 1}));
+app.use('/login', express.static('public', {maxAge: 1}));
+app.use('/signup', express.static('public', {maxAge: 1}));
 app.use('/libs', express.static('node_modules'));
 
 

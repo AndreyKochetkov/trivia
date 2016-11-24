@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/css/main.css" />
 
 	<link rel="stylesheet" href="/components/button/button.css" />
-	<link rel="stylesheet" href="/components/chat/chat.css" />
+	<link rel="stylesheet" href="/components/loading/loading.css" />
 </head>
 <body>
 	<div class="js-main" hidden="hidden"></div>
@@ -15,7 +15,10 @@
 	<div class="js-signup" hidden="hidden"></div>
 	<div class="js-scores" hidden="hidden"></div>
 	<div class="js-game" hidden="hidden">
-		<canvas class="js-canvas"></canvas>
+		<div id="js-game-loading" hidden="hidden"></div>
+		<div id="js-game-asks" hidden="hidden"></div>
+		<div id="js-game-answers" hidden="hidden"></div>
+		<div id="js-game-final-menu" hidden="hidden"></div>
 	</div>
 
 	<script src="/libs/technolibs/index.js"></script>
@@ -36,11 +39,12 @@
 	<script src="/components/chat/chat.tmpl.js"></script>
 	<script src="/components/chat/chat.js"></script>
 	<script src="/components/menu/menu.js"></script>
+	<script src="/components/loading/loading.js"></script>
 
 	<script src="/game/keymaster.js"></script>
 	<script src="/game/ball.js"></script>
 	<script src="/game/pane.js"></script>
-	<script src="/game/pingpong.js"></script>
+	<script src="/game/trivia.js"></script>
 
 	<script src="/views/main.js"></script>
 	<script src="/views/game.js"></script>
