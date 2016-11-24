@@ -14,10 +14,115 @@
 
 
 		start() {
+			/*
+					LOADING
+			*/
+
 			let loadingBlock = document.getElementById("js-game-loading");
-			let loading = new Loading ({id:"loading_id"})
-			loadingBlock.appendChild(loading._get())
-			loadingBlock.hidden = false;
+			let loading = new Loading ({
+				el: loadingBlock,
+				id: "loading_id"
+			})
+
+			/////// END ////////
+			/*
+					QUESTIONS
+			*/
+			let questionsBlock = document.getElementById("js-game-asks");
+			let questions = new Menu ({
+				el: questionsBlock,
+				data: {
+					controls: [
+						{
+							text: "question 1",
+							type: 'button'
+						}, {
+							text: "question 2",
+							type: 'button'
+						} , {
+							text: "question 3",
+							type: 'button'
+						} , {
+							text: "question 4",
+							id: 'button-kostul-q',
+							type: 'button'
+						}
+					]
+				}
+			})
+
+				/////// END ////////
+
+			/*
+					ANSWERS
+			*/
+
+			let answersBlock = document.getElementById("js-game-answers");
+			let answers = new Menu ({
+				el: answersBlock,
+				data: {
+					controls: [
+						{
+							text: "question",
+							type: "div"
+
+						}, {
+							text: "answer 1",
+							type: 'button'
+						}, {
+							text: "answer 2",
+							type: 'button'
+						} , {
+							text: "answer 3",
+							id: "final-kostul",
+							type: 'button'
+						} , {
+							text: "answer 4",
+							id: 'button-kostul-a',
+							type: 'button'
+						}
+					]
+				}
+			})
+
+
+				/////// END ////////
+
+			/*
+					FINAL MENU
+			*/
+			let finalMenuBlock = document.getElementById("js-game-final-menu");
+			let finalMenu = new Menu ({
+				el: finalMenuBlock,
+				data: {
+					controls: [
+						{
+							text: "play again",
+							type: 'button'
+						} , {
+							text: "leader board",
+							type: 'button'
+						} , {
+							text: "log out",
+							id: 'button-kostul',
+							type: 'button'
+						}
+					]
+				}
+			})
+
+
+			/////// END ////////
+			let fd = document.getElementById("final-kostul");
+			fd.addEventListener('click', event => {
+				event.preventDefault();
+
+				finalMenuBlock.hidden = false;
+				answersBlock.hidden = true;
+				
+			})
+
+
 			this.wait_opponent();
 
 		}
@@ -55,40 +160,35 @@
 		ask_questions(request_data) {
 
 			let questionsBlock = document.getElementById("js-game-asks");
+			questionsBlock.hidden = false;
 
 			//this._el.appendChild(document.createElement("div"));
 
-			let questions = new Menu ({
-				el: questionsBlock,
-				data: {
-					controls: [
-						{
-							text: request_data.fisrst_question,
-							type: 'button'
-						}, {
-							text: request_data.second_question,
-							type: 'button'
-						} , {
-							text: request_data.third_question,
-							type: 'button'
-						} , {
-							text: request_data.fourth_question,
-							id: 'button-kostul',
-							type: 'button'
-						}
-					]
-				}
-			})
-			questionsBlock.hidden = false;
-			let loadingDiv = document.getElementById("button-kostul");
+			let loadingDiv = document.getElementById("button-kostul-q");
 			loadingDiv.addEventListener('click', event => {
 				event.preventDefault();
-				questionsBlock.hidden = true;
-				this.wait_opponent();
 
+				questionsBlock.hidden = true;
+				this.answer();
 			})
 
 		}
+
+		answer(request_data) {
+			let answersBlock = document.getElementById("js-game-answers");
+			answersBlock.hidden = false;
+
+			//this._el.appendChild(document.createElement("div"));
+
+			let loadingDiv = document.getElementById("button-kostul-a");
+			loadingDiv.addEventListener('click', event => {
+				event.preventDefault();
+
+				answersBlock.hidden = true;
+				this.wait_opponent();
+			})
+		}
+
 
 	}
 

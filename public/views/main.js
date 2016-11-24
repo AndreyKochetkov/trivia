@@ -42,6 +42,7 @@
 					]
 				}
 			});
+			this._component.render();
 
 
 
