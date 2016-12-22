@@ -19,7 +19,7 @@
 		 * Регистрирует пользователя на сервере
 		 * @returns {Promise}
 		 */
-		signup() {
+		signin() {
 			return new Promise(function (resolve, reject) {
 				const xhr = new XMLHttpRequest();
 
@@ -37,6 +37,11 @@
 					if (this.status !== 201) {
 						return reject(this.statusText);
 					}
+					if (this.readyState == 4) {
+     				if(this.status == 200) {
+
+         		}
+  	 		}
 					resolve(JSON.parse(json));
 				};
 
