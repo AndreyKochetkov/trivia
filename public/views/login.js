@@ -56,8 +56,8 @@
 				event.preventDefault();
 
 				let user = window.user;
-				user.attributes['login']=signInForm.getFormData()['login'];
-				user.attributes['password']=signInForm.getFormData()['password'];
+				user.attributes['login']=this._component.getFormData()['login'];
+				user.attributes['password']=this._component.getFormData()['password'];
 				user.signin().then(
 					result=> {
 						if (result.status === 200) {
@@ -67,10 +67,10 @@
 							this.router.go('/login');
 						}
 						else
-							alert("this wrong password");
+							alert(" password incorrect");
 					},
 					error=> {
-						alert("??!!");
+						alert("login send failed");
 					}
 				);
 			});

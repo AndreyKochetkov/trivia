@@ -49,26 +49,29 @@
 			this._component.on('submit', event => {
 				event.preventDefault();
 
-				let formData = this._component.getFormData();
-				const user = new User(formData.user, formData.email);
+				let user = window.user;
+				user.attributes['login'] = this._component.getFormData()['login'];
+				user.attributes['email'] = this._component.getFormData()['email'];
+				user.attributes['password'] = this._component.getFormData()['password'];
 
-				user
-					.signup()
-					.then(() => {
-						this.router.go('/game', user.json);
-					})
-					.catch(console.error);
-			});
+				user.signup().then(
+						result=> {
+								if (result.status === 200) {
+										user.attributes['id'] = 1;//TODO need id in cookie
+										this.router.go('/login');
+								}
+								else
+										alert("this login has been already in use");
+						},
+						error=> {
+								alert("error send signup");
+						}
+				);
 
-			let backButton = document.getElementById('js-btn-back-signup');
-			backButton.addEventListener('click', event => {
-				event.preventDefault();
-				this.router.go('/');
-			});
 
-
-		}
+		})
 	}
+}
 
 
 	// export

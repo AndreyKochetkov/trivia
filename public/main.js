@@ -8,7 +8,8 @@
 	const SignupView = window.SignupView;
 	const LoginView = window.LoginView;
 
-
+	let user = new User('login', 'email', 'password', 'id');
+	window.user = user;
 	user.detectSession().then(
 			result=>{
 					if (result.status === 200) {
@@ -24,7 +25,7 @@
 					}
 			},
 			error=> {
-					alert("WTF??!!");
+					alert("error detectSession");
 			}
 	);
 	// TIP: роуты нужно указывать от наиболее специфичного к наименее специфичному

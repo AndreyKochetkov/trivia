@@ -14,6 +14,7 @@
 			super('div');
 			this.data = options.data;
 			this._el = options.el;
+			console.log("вызван constructor menu")
 			this.render();
 		}
 
@@ -21,7 +22,7 @@
 		 * Обновляем HTML
 		 */
 		render() {
-
+			console.log("вызван render() menu")
 			this._installControls();
 		}
 

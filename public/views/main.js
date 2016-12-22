@@ -42,7 +42,7 @@
 					]
 				}
 			});
-			this._component.render();
+			
 
 
 

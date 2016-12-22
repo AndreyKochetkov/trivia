@@ -17,7 +17,7 @@
         }
 
         get baseUrl() {
-            return `${window.addressHost}api`;
+            return `tankssteam.herokuapp.com/api`;
         }
 
         send(method, url,  data = {}) {
