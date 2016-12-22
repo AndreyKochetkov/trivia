@@ -55,15 +55,24 @@
 			this._component.on('submit', event => {
 				event.preventDefault();
 
-				let formData = this._component.getFormData();
-				const user = new User(formData.user, formData.email);
-
-				user
-					.signup()
-					.then(() => {
-						this.router.go('/game', user.json);
-					})
-					.catch(console.error);
+				let user = window.user;
+				user.attributes['login']=signInForm.getFormData()['login'];
+				user.attributes['password']=signInForm.getFormData()['password'];
+				user.signin().then(
+					result=> {
+						if (result.status === 200) {
+							let responseDataFields = JSON.parse(result.response);
+							user.attributes['email'] = responseDataFields['email'];
+							user.attributes['id'] = 1;//TODO need id in cookie
+							this.router.go('/login');
+						}
+						else
+							alert("this wrong password");
+					},
+					error=> {
+						alert("??!!");
+					}
+				);
 			});
 
 			let signupButton = document.getElementById('js-btn-signup-signin');

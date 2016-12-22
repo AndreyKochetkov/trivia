@@ -1,94 +1,57 @@
 (function () {
-	'use strict';
+    const Model = window.Model;
 
-	/**
-	 * Класс User
-	 */
-	class User {
-		/**
-		 * Создаёт нового пользователя
-		 * @param {string} username - имя пользователя
-		 * @param {string} email - email пользователя
-		 */
-		constructor(username, email) {
-			this.username = username;
-			this.email = email;
-		}
+    class User extends Model {
 
-		/**
-		 * Регистрирует пользователя на сервере
-		 * @returns {Promise}
-		 */
-		signin() {
-			return new Promise(function (resolve, reject) {
-				const xhr = new XMLHttpRequest();
+        constructor(attributes) {
+            super(attributes);
 
-				const json = JSON.stringify({
-					username: this.username,
-					email: this.email
-				});
+            this.attributes['id'] = -1;
+        }
 
-				xhr.open('POST', `/api/users`, true);
-				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        get userUrl() {
+            return `http://${this.baseUrl}/user`;
+        }
 
-				xhr.onreadystatechange = function () {
-					if (this.readyState !== 4) return;
-					if (this.status !== 201) {
-						return reject(this.statusText);
-					}
-					if (this.readyState == 4) {
-     				if(this.status == 200) {
+        get sessionUrl(){
+            return `http://${this.baseUrl}/session`;
+        }
 
-         		}
-  	 		}
-					resolve(JSON.parse(json));
-				};
+        get defaults() {
+            return {
+                login: 'anon',
+                email: 'anon@mail.ru',
+                password: '123',
+                id: -1
+            }
+        }
 
-				xhr.onerror = function () {
-					reject();
-				};
+        signin(){
+            let request = {
+                login: this.attributes['login'],
+                password: this.attributes['password']
+            };
+            return this.send('POST', this.sessionUrl, request)
+        }
 
-				xhr.send(json);
-			}.bind(this));
-		}
+        logout(){
+            return this.send('DELETE', this.sessionUrl, {})
+        }
 
-		/**
-		 * Получает список пользователей с сервера
-		 * @returns {Promise}
-		 */
-		static fetchAll() {
-			return new Promise(function (resolve, reject) {
-				const xhr = new XMLHttpRequest();
+        signup() {
+            let request = {
+                login: this.attributes['login'],
+                email: this.attributes['email'],
+                password: this.attributes['password']
+            };
+            return this.send('POST', this.userUrl, request);
+        }
 
-				xhr.open('GET', `/api/users`, true);
-				xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-				xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        detectSession(){
+            return this.send('GET', this.sessionUrl, {});
+        }
 
-				xhr.onreadystatechange = function () {
-					if (this.readyState !== 4) return;
-					if (this.status !== 200) {
-						return reject(this.statusText);
-					}
-					resolve(JSON.parse(this.responseText));
-				};
+    }
 
-				xhr.send();
-			});
-		}
-
-		/**
-		 * Возвращает характеристики пользователя в виде plain объекта
-		 * @returns {{username: (string|*), email: (string|*)}} - данные о пользователе
-		 */
-		get json() {
-			return {
-				username: this.username,
-				email: this.email
-			};
-		}
-	}
-
-	//export
-	window.User = User;
+    window.User = User;
 })();
